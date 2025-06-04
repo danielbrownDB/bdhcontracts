@@ -1,40 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BDH Contracts</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>BDH Contracts</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>BDH Contracts</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="testimonials.html">Testimonials</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
-  <main>
-    <section class="hero">
-      <h2>Quality Contracting Services</h2>
-      <p>Reliable. Professional. Experienced.</p>
-    </section>
-	
-	<section class="testimonials">
-  <h2>What Our Clients Say</h2>
-  <blockquote>
-    "BDH Contracts did an amazing job with our renovation project. Highly recommend!"
-    <footer>- Jane R., Homeowner</footer>
-  </blockquote>
-</section>
+    <header class="header">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="BDH Contracts Logo" class="logo" />
+        </div>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  </main>
-  <footer>
-    <p>&copy; 2025 BDH Contracts</p>
-  </footer>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Building the Future with BDH Contracts</h1>
+            <p>Reliable. Professional. Experienced.</p>
+            <a href="#contact" class="cta-button">Get in Touch</a>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2>About Us</h2>
+        <p>BDH Contracts is a leading construction and contracting company with a reputation for excellence and reliability. With years of experience in the industry, we deliver high-quality projects on time and within budget.</p>
+   >
+
+    <section class="services" id="services">
+        <h2>Our Services</h2>
+        <div class="service-cards">
+            <div class="card">
+                <h3>Excavation</h3>
+                <p>Professional excavation services for residential and commercial projects.</p>
+            </div>
+            <div class="card">
+                <h3>Site Preparation</h3>
+                <p>Comprehensive site prep including grading, drainage, and foundation work.</p>
+            </div>
+            <div class="card">
+                <h3>Project Management</h3>
+                <p>End-to-end project management ensuring quality and efficiency.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <form class="contact-form">
+            <input type="text" placeholder="Your Name" required />
+            <input type="email" placeholder="Your Email" required />
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        &copy; 2025 BDH Contracts. All rights reserved.
+    </footer>
 </body>
 </html>

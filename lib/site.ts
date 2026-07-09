@@ -8,8 +8,8 @@ export const site = {
   description:
     "BDH Contracts is a trusted contracting company specialising in excavation, site preparation, paving, fencing and tree removal for residential and commercial clients.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://bdhcontracts.com",
-  phone: "+44 7000 000000", // TODO: replace with real phone number
-  phoneDisplay: "07000 000000", // TODO: replace with real phone number
+  phone: "+447484332867",
+  phoneDisplay: "07484 332867",
   email: "info@bdhcontracts.com", // TODO: replace with real email
   hours: [
     { days: "Monday – Friday", time: "8:00am – 6:00pm" },

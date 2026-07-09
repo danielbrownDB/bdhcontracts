@@ -136,35 +136,151 @@ p {
 
 /* ---------- Header ---------- */
 
-.header {
-  position: sticky;
+.header-wrap {
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: var(--navy);
+}
+
+/* Slim utility bar above the header */
+
+.topbar {
+  background: var(--navy-dark);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  max-height: 40px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.header-wrap--scrolled .topbar {
+  max-height: 0;
+  opacity: 0;
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 38px;
+}
+
+.topbar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+a.topbar__item:hover {
   color: #fff;
-  box-shadow: var(--shadow);
+}
+
+.topbar__socials {
+  margin-left: auto;
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.topbar__socials a {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.topbar__socials a:hover {
+  color: var(--orange);
+}
+
+@media (max-width: 880px) {
+  .topbar {
+    display: none;
+  }
+}
+
+/* Main header: blends into the hero at the top, frosted glass once scrolled */
+
+.header {
+  position: relative;
+  color: #fff;
+  background: linear-gradient(
+    to bottom,
+    rgba(22, 32, 43, 0.88),
+    rgba(22, 32, 43, 0.35) 70%,
+    rgba(22, 32, 43, 0)
+  );
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+.header-wrap--scrolled .header {
+  background: rgba(30, 42, 56, 0.85);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow: 0 4px 24px rgba(10, 16, 22, 0.35);
 }
 
 .header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 68px;
+  min-height: 76px;
   gap: 1rem;
+  transition: min-height 0.3s ease;
+}
+
+.header-wrap--scrolled .header__inner {
+  min-height: 62px;
 }
 
 .header__brand {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   color: #fff;
+}
+
+.header__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(232, 118, 45, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.header__brand:hover .header__badge {
+  transform: rotate(-6deg) scale(1.06);
+  box-shadow: 0 5px 16px rgba(232, 118, 45, 0.55);
+}
+
+.header__wordmark {
   font-weight: 800;
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   letter-spacing: 0.01em;
 }
 
-.header__brand span {
+.header__wordmark em {
+  font-style: normal;
   color: var(--orange);
+}
+
+/* Thin scroll progress line along the header's bottom edge */
+
+.header__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), #ffb347);
+  transform-origin: left;
+  transform: scaleX(0);
+  border-radius: 0 2px 2px 0;
 }
 
 .nav {
@@ -174,18 +290,48 @@ p {
 }
 
 .nav a {
+  position: relative;
   color: rgba(255, 255, 255, 0.85);
   font-weight: 600;
   font-size: 0.98rem;
-  padding: 0.25rem 0;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  padding: 0.35rem 0;
+  transition: color 0.15s ease;
+}
+
+.nav a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
 }
 
 .nav a:hover,
 .nav a[aria-current="page"] {
   color: #fff;
-  border-bottom-color: var(--orange);
+}
+
+.nav a:not(.btn):hover::after,
+.nav a[aria-current="page"]:not(.btn)::after {
+  transform: scaleX(1);
+}
+
+/* CTA glow */
+
+.btn--glow {
+  box-shadow: 0 0 0 0 rgba(232, 118, 45, 0);
+  transition: background 0.15s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.btn--glow:hover {
+  box-shadow: 0 4px 18px rgba(232, 118, 45, 0.55);
+  transform: translateY(-1px);
 }
 
 .nav .btn {
@@ -247,6 +393,7 @@ p {
   color: #fff;
   overflow: hidden;
   background: var(--navy);
+  padding-top: 116px; /* clear the fixed header */
 }
 
 .hero__bg {
@@ -686,6 +833,7 @@ p {
   background: var(--navy);
   color: #fff;
   padding: 3.5rem 0;
+  padding-top: calc(3.5rem + 116px); /* clear the fixed header */
 }
 
 .page-hero h1 {

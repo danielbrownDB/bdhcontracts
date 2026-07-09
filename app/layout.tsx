@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FloatingCall from "@/components/FloatingCall";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <FloatingCall />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

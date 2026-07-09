@@ -1,12 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Status = "idle" | "sending" | "ok" | "error";
 
-export default function ContactForm() {
+export default function ContactForm({ prefill = "" }: { prefill?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [message, setMessage] = useState("");
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (!prefill) return;
+    setMessage(prefill);
+    messageRef.current?.focus();
+    messageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [prefill]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,6 +35,7 @@ export default function ContactForm() {
       }
       setStatus("ok");
       form.reset();
+      setMessage("");
     } catch (err) {
       setStatus("error");
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
@@ -48,7 +58,14 @@ export default function ContactForm() {
       </label>
       <label>
         Your Message
-        <textarea name="message" required maxLength={4000} />
+        <textarea
+          name="message"
+          required
+          maxLength={4000}
+          ref={messageRef}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
       </label>
       {status === "ok" && (
         <p className="form__status form__status--ok" role="status">

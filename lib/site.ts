@@ -23,6 +23,14 @@ export const site = {
   gaId: process.env.NEXT_PUBLIC_GA_ID ?? "",
 };
 
+// TODO: replace with real figures
+export const stats = [
+  { value: 12, suffix: "+", label: "Years Experience" },
+  { value: 350, suffix: "+", label: "Projects Completed" },
+  { value: 8500, suffix: "t", label: "Material Shifted" },
+  { value: 100, suffix: "%", label: "Jobs Left Tidy" },
+];
+
 export type ServiceInfo = {
   slug: string;
   title: string;

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BeforeAfter from "@/components/BeforeAfter";
+import ScrollReveal from "@/components/ScrollReveal";
+import VideoLightbox from "@/components/VideoLightbox";
 import { projects, videos } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -30,8 +32,10 @@ export default function GalleryPage() {
             <h2>Project Transformations</h2>
           </div>
           <div className="grid grid--3">
-            {projects.map((p) => (
-              <BeforeAfter key={p.title} project={p} />
+            {projects.map((p, i) => (
+              <ScrollReveal key={p.title} delay={i * 120}>
+                <BeforeAfter project={p} />
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -42,15 +46,12 @@ export default function GalleryPage() {
           <div className="section-heading">
             <span className="kicker">On Site</span>
             <h2>Watch Us Work</h2>
-            <p>Short clips from recent jobs — the machines, the process, the finish.</p>
+            <p>
+              Short clips from recent jobs — the machines, the process, the
+              finish. Click any clip to watch it full screen.
+            </p>
           </div>
-          <div className="grid grid--3">
-            {videos.map((v) => (
-              <div key={v.src} className="video-card">
-                <video src={v.src} controls preload="metadata" playsInline aria-label={v.title} />
-              </div>
-            ))}
-          </div>
+          <VideoLightbox videos={videos} />
         </div>
       </section>
 

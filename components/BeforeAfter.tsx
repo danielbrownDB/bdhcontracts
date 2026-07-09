@@ -1,12 +1,47 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/site";
 
 export default function BeforeAfter({ project }: { project: Project }) {
   const [pos, setPos] = useState(50);
   const stageRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
+  const swept = useRef(false);
+
+  // One-time attention sweep when the slider first scrolls into view,
+  // so visitors realise it's draggable. Cancelled by any interaction.
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || swept.current) return;
+        swept.current = true;
+        obs.disconnect();
+        const start = performance.now();
+        const duration = 1500;
+        const tick = (now: number) => {
+          if (dragging.current) return;
+          const t = Math.min(1, (now - start) / duration);
+          // 50 → 72 → 32 → 50 smooth sweep
+          const angle = t * Math.PI * 2;
+          setPos(50 + Math.sin(angle) * 22 * (1 - t * 0.3));
+          if (t < 1) raf = requestAnimationFrame(tick);
+          else setPos(50);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.5 }
+    );
+    obs.observe(stage);
+    return () => {
+      obs.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const updateFromClientX = useCallback((clientX: number) => {
     const stage = stageRef.current;

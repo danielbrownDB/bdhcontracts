@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/ContactForm";
+import ContactSection from "@/components/ContactSection";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -24,8 +24,7 @@ export default function ContactPage() {
       <section className="section">
         <div className="container contact-grid">
           <div>
-            <h2>Send a Message</h2>
-            <ContactForm />
+            <ContactSection />
           </div>
           <div>
             <h2>Contact Details</h2>
